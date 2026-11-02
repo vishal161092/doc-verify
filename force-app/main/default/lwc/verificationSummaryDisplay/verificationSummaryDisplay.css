@@ -1,0 +1,36 @@
+.slds-p-around_medium {
+    padding: 1rem;
+}
+
+.status-red {
+    color: #c23934;
+    --slds-c-icon-color-foreground-default: #c23934;
+}
+
+.status-green {
+    color: #04844b;
+    --slds-c-icon-color-foreground-default: #04844b;
+}
+
+.status-unknown {
+    color: #706e6b;
+    --slds-c-icon-color-foreground-default: #706e6b;
+}
+
+.slds-table {
+    margin-top: 1rem;
+}
+
+.slds-table th {
+    background-color: #f3f2f2;
+    font-weight: 600;
+}
+
+.slds-table td {
+    vertical-align: middle;
+}
+
+.slds-table td[data-label="Status"] {
+    display: flex;
+    align-items: center;
+}

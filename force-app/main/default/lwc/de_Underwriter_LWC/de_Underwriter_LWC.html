@@ -1,0 +1,59 @@
+<template>
+    
+    <div style="text-align: center;padding: 24px;">
+        <lightning-button icon-name="utility:sparkles" variant="brand" label="Generate" title="Generate response" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+    </div>
+
+
+    <template if:true={einsteinLoading}>
+        <div class="slds-grid slds-wrap img-container" style="height: 220px;padding-top: 56px;">
+
+        <div class="slds-size_1-of-2 img-align custom-width" style="text-align:right;">
+            <img src={einsteinMainGif} class="loading-Einstein-Img"/>
+        </div>
+
+        <div class="slds-size_1-of-2 custom-section-font">
+
+                <div class="loading-text-top-padding">
+                    <template if:true={load1_1} class="">
+                        <img src={einsteinLoadin} class="img-container"/> <span class="progress-font-color custom-text-weight"> Analyzing your request </span>
+                    </template>
+                    <template if:true={load1_2}>
+                        <div class="loading-text-weight"> <lightning-icon class="icon-complete-color" icon-name="utility:success" size="small"></lightning-icon> Analyzing your request </div>
+                    </template>
+                </div>
+                <div class="loading-text-padding">
+                    <template if:true={load2_1}>
+                        <img src={einsteinLoadin} class="img-container"/> <span class="progress-font-color custom-text-weight"> Figuring out next steps </span>
+                    </template>
+                    <template if:true={load2_2}>
+                        <div class="loading-text-weight"> <lightning-icon class="icon-complete-color" icon-name="utility:success" size="small"></lightning-icon> Figuring out next steps </div>
+                    </template>
+                </div>
+                <div class="loading-text-padding">
+                    <template if:true={load3_1}>
+                        <img src={einsteinLoadin} class="img-container"/> <span class="progress-font-color custom-text-weight"> Working </span>
+                    </template>
+                    <template if:true={load3_2}>
+                        <div class="loading-text-weight"> <lightning-icon class="icon-complete-color" icon-name="utility:success" size="small"></lightning-icon> Working </div>
+                    </template>
+                </div>
+                <div class="loading-text-padding">       
+                    <template if:true={load4_1}>
+                        <img src={einsteinLoadin} class="img-container"/> <span class="progress-font-color custom-text-weight"> Finishing up </span>
+                    </template>
+                    <template if:true={load4_2}>
+                        <div class="loading-text-weight"> <lightning-icon class="icon-complete-color" icon-name="utility:success" size="small"></lightning-icon> Finishing up </div>
+                    </template>
+                </div>
+        </div>
+        </div>
+    </template>
+
+    <template if:false={einsteinLoading}>
+    <div>
+        <lightning-formatted-rich-text value={response}></lightning-formatted-rich-text>
+    </div>
+    </template>
+
+</template>

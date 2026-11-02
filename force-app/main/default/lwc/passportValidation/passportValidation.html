@@ -1,0 +1,228 @@
+<template>
+    <template if:true={data}>
+        <div class="validation-card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="header-left">
+                    <div class="icon-container">
+                        <svg class="doc-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#5867E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 2V8H20" stroke="#5867E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="header-text">
+                        <div class="doc-type">Passport</div>
+                        <div class="doc-id">{data.extractedData.passportNumber}</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="confidence-label">CONFIDENCE SCORE</div>
+                    <div class="confidence-score">{confidenceScore}%</div>
+                </div>
+            </div>
+
+            <!-- Status Banner -->
+            <div class={statusClass}>
+                <div class="status-icon">
+                    <template if:true={data.success}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="white"/>
+                            <path d="M7 12l3 3 7-7" stroke="#1B873F" stroke-width="2" fill="none"/>
+                        </svg>
+                    </template>
+                    <template if:false={data.success}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="white"/>
+                            <path d="M8 8l8 8M16 8l-8 8" stroke="#D60000" stroke-width="2"/>
+                        </svg>
+                    </template>
+                </div>
+                <div class="status-content">
+                    <div class="status-title">{statusMessage}</div>
+                    <div class="status-subtitle">{statusDetail}</div>
+                </div>
+            </div>
+
+            <!-- Flag Boxes -->
+            <div class="flag-boxes">
+                <div class={expiredClass}>
+                    <div class="flag-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="14" fill="#FEE2E2"/>
+                            <path d="M16 11v6M16 21h.01" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="flag-label">EXPIRED</div>
+                    <div class="flag-value">{expiredFlag}</div>
+                </div>
+
+                <div class="flag-box success">
+                    <div class="flag-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="4" fill="#FEF3C7"/>
+                            <path d="M9 16l4 4 10-10" stroke="#F59E0B" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="flag-label">{completePercentage}%</div>
+                    <div class="flag-value">Complete</div>
+                </div>
+
+                <div class="flag-box success">
+                    <div class="flag-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="14" fill="#D1FAE5"/>
+                            <path d="M10 16l4 4 8-8" stroke="#059669" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="flag-label">{qualityPercentage}%</div>
+                    <div class="flag-value">Quality</div>
+                </div>
+
+                <div class="flag-box success">
+                    <div class="flag-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="14" fill="#FEE2E2"/>
+                            <path d="M16 10v8l4 4" stroke="#DC2626" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="flag-label">{confidenceScore}%</div>
+                    <div class="flag-value">Confidence</div>
+                </div>
+            </div>
+
+            <!-- Expiry Details -->
+            <div class="section expiry-section">
+                <div class="section-icon">⏱️</div>
+                <div class="section-title">EXPIRY DETAILS</div>
+            </div>
+            <div class="section-content expiry-content">
+                <div class="info-row">
+                    <div class="info-col">
+                        <div class="info-label">ISSUE DATE:</div>
+                        <div class="info-value">{data.expiry.issueDate}</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="info-label">EXPIRY DATE:</div>
+                        <div class="info-value">{data.expiry.expiryDate}</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-col">
+                        <div class="info-label">DAYS REMAINING:</div>
+                        <div class="info-value">{daysRemainingText}</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="info-label">VALIDITY STATUS:</div>
+                        <div class={expiryStatusClass}>
+                            <template if:true={data.expiry.isValid}>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M4 8l2 2 6-6" stroke="#059669" stroke-width="2" fill="none"/>
+                                </svg>
+                                Valid
+                            </template>
+                            <template if:false={data.expiry.isValid}>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M4 4l8 8M12 4l-8 8" stroke="#dc2626" stroke-width="2"/>
+                                </svg>
+                                Expired
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completeness -->
+            <div class="section">
+                <div class="section-icon">📊</div>
+                <div class="section-title">COMPLETENESS</div>
+            </div>
+            <div class="section-content">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-label">PROGRESS</span>
+                        <span class="progress-percentage">{completePercentage}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style={progressBarStyle}></div>
+                    </div>
+                </div>
+                <template if:false={hasMissingFields}>
+                    <div class="completeness-message success-text">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 8l2 2 6-6" stroke="#059669" stroke-width="2" fill="none"/>
+                        </svg>
+                        All required fields are present and readable
+                    </div>
+                </template>
+                <template if:true={hasMissingFields}>
+                    <div class="missing-fields">
+                        <div class="missing-title">Missing Fields:</div>
+                        <ul>
+                            <template for:each={missingFieldItems} for:item="field">
+                                <li key={field}>{field}</li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Extracted Information -->
+            <div class="section">
+                <div class="section-icon">📋</div>
+                <div class="section-title">EXTRACTED INFORMATION</div>
+            </div>
+            <div class="section-content extracted-data">
+                <div class="data-grid">
+                    <div class="data-item">
+                        <div class="data-label">PASSPORT NUMBER</div>
+                        <div class="data-value">{data.extractedData.passportNumber}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">NATIONALITY</div>
+                        <div class="data-value">{data.extractedData.nationality}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">GIVEN NAMES</div>
+                        <div class="data-value">{data.extractedData.givenNames}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">SURNAME</div>
+                        <div class="data-value">{data.extractedData.surname}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">DATE OF BIRTH</div>
+                        <div class="data-value">{data.extractedData.dateOfBirth}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">ISSUE DATE</div>
+                        <div class="data-value">{data.extractedData.issueDate}</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">EXPIRY DATE</div>
+                        <div class="data-value">{data.extractedData.expiryDate}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issues -->
+            <template if:true={hasIssues}>
+                <div class="section">
+                    <div class="section-icon">⚠️</div>
+                    <div class="section-title">ISSUES DETECTED</div>
+                </div>
+                <div class="section-content">
+                    <ul class="issues-list">
+                        <template for:each={issueItems} for:item="issue">
+                            <li key={issue} class="issue-item">{issue}</li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <!-- Upload Another Button -->
+            <div class="action-container">
+                <button class="upload-button">Upload Another Document</button>
+            </div>
+        </div>
+    </template>
+</template>

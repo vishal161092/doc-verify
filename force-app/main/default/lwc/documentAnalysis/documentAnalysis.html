@@ -1,0 +1,265 @@
+<template>
+    <lightning-card title="Document Analysis" icon-name="custom:custom19">
+        <div slot="actions">
+            <!-- AI Summary and Actions -->
+            <div class="slds-grid slds-grid_align-end slds-grid_vertical-align-center">
+                <div class="slds-col slds-p-right_small">
+                    <lightning-button
+                        label="AI Summary"
+                        icon-name="utility:einstein"
+                        variant="brand"
+                        onclick={handleAISummaryClick}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+                
+                <div class="slds-col slds-p-right_small">
+                    <lightning-input
+                        type="toggle"
+                        label="Show AI Analysis"
+                        name="showAIAnalysis"
+                        checked={showAIAnalysis}
+                        onchange={handleToggleChange}
+                        variant="label-inline">
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col">
+                    <lightning-button-icon
+                        icon-name="utility:refresh"
+                        variant="border-filled"
+                        alternative-text="Refresh"
+                        title="Refresh Documents"
+                        onclick={handleRefresh}
+                        disabled={isLoading}>
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Search and Summary Bar -->
+            <div class="slds-grid slds-grid_align-spread slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input
+                        type="search"
+                        label="Search Documents"
+                        placeholder="Search by name, status, or remarks..."
+                        value={searchTerm}
+                        onchange={handleSearchChange}
+                        variant="label-hidden">
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right">
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        {documentCount} document(s) found
+                    </p>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading documents..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Data Table -->
+            <div class="document-analysis-content">
+                <template if:false={hasDocuments}>
+                    <div class="slds-text-align_center slds-p-around_large">
+                        <lightning-icon icon-name="standard:document" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p class="slds-text-heading_small">No documents found</p>
+                        <p class="slds-text-body_regular">Upload documents to get started with AI analysis</p>
+                    </div>
+                </template>
+                
+                <template if:true={hasDocuments}>
+                    <!-- Custom HTML Table for Full Scrollbar Control -->
+                    <div class="custom-document-table">
+                        <table class="slds-table slds-table_cell-buffer slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="File">File</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Document Type">Document Type</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Status">Status</div>
+                                    </th>
+                                    <th class="slds-text-title_caps actions-header" scope="col">
+                                        <div class="slds-truncate" title="Actions">Actions</div>
+                                    </th>
+                                    <template if:true={showAIAnalysis}>
+                                        <th class="slds-text-title_caps ai-analysis-header" scope="col">
+                                            <div class="slds-truncate" title="AI Analysis">AI Analysis</div>
+                                        </th>
+                                    </template>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredDocuments} for:item="doc">
+                                    <tr key={doc.documentId} class="slds-hint-parent">
+                                        <!-- File Column -->
+                                        <td data-label="File">
+                                            <div class="slds-media slds-media_center">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon icon-name={doc.fileIcon} size="small"></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <div class="slds-truncate" title={doc.fileName}>{doc.fileName}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        
+                                        <!-- Document Type Column -->
+                                        <td data-label="Document Type">
+                                            <div class="slds-truncate" title={doc.documentType}>{doc.documentType}</div>
+                                        </td>
+                                        
+                                        <!-- Status Column -->
+                                        <td data-label="Status">
+                                            <span class={doc.statusClass}>{doc.status}</span>
+                                        </td>
+                                        
+                                        <!-- Actions Column -->
+                                        <td data-label="Actions" class="actions-cell">
+                                            <div class="action-buttons-container">
+                                                <lightning-button-icon 
+                                                    icon-name="utility:upload"
+                                                    variant="border-filled" 
+                                                    title="Upload File"
+                                                    alternative-text="Upload"
+                                                    size="small"
+                                                    data-document-id={doc.documentId}
+                                                    onclick={handleUploadClick}>
+                                                </lightning-button-icon>
+                                                <lightning-button-icon 
+                                                    icon-name="utility:preview"
+                                                    variant={doc.previewVariant}
+                                                    disabled={doc.previewDisabled}
+                                                    title="Preview File"
+                                                    alternative-text="Preview"
+                                                    size="small"
+                                                    data-document-id={doc.documentId}
+                                                    onclick={handlePreviewClick}>
+                                                </lightning-button-icon>
+                                                <lightning-button-icon 
+                                                    icon-name="utility:file"
+                                                    variant={doc.viewVariant}
+                                                    disabled={doc.viewDisabled}
+                                                    title="View File"
+                                                    alternative-text="View"
+                                                    size="small"
+                                                    data-document-id={doc.documentId}
+                                                    onclick={handleViewClick}>
+                                                </lightning-button-icon>
+                                            </div>
+                                        </td>
+                                        
+                                        <!-- AI Analysis Column -->
+                                        <template if:true={showAIAnalysis}>
+                                            <td data-label="AI Analysis" class="ai-analysis-cell">
+                                                <div class="ai-analysis-content">
+                                                    {doc.aiAnalysisDisplay}
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- AI Summary Modal -->
+    <template if:true={showAISummaryModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={closeAISummaryModal}
+                        alternative-text="close"
+                        variant="bare-inverse"
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                        <lightning-icon icon-name="utility:einstein" size="small" class="slds-m-right_small"></lightning-icon>
+                        AI Summary
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <!-- Loading Spinner -->
+                    <template if:true={isAISummaryLoading}>
+                        <div class="slds-align_absolute-center slds-p-around_large">
+                            <lightning-spinner alternative-text="Generating AI Summary..." size="medium"></lightning-spinner>
+                            <p class="slds-text-align_center slds-m-top_medium">Generating AI Summary...</p>
+                        </div>
+                    </template>
+
+                    <!-- Existing Summary Decision -->
+                    <template if:true={showSummaryDecision}>
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <lightning-icon icon-name="utility:info" size="medium" class="slds-m-bottom_medium"></lightning-icon>
+                            <h3 class="slds-text-heading_medium slds-m-bottom_medium">AI Summary Already Exists</h3>
+                            <p class="slds-text-body_regular slds-m-bottom_large">
+                                An AI summary has been previously generated for this record. 
+                                Would you like to view the existing summary or generate a new one?
+                            </p>
+                            <div class="slds-grid slds-grid_align-center slds-gutters">
+                                <div class="slds-col">
+                                    <lightning-button
+                                        label="View Existing"
+                                        variant="neutral"
+                                        onclick={viewExistingSummary}>
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-button
+                                        label="Generate New"
+                                        variant="brand"
+                                        onclick={generateNewSummary}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- AI Summary Content -->
+                    <template if:true={showSummaryContent}>
+                        <div class="ai-summary-container">
+                            <div class="slds-text-align_center slds-m-bottom_medium">
+                                <lightning-icon icon-name="utility:success" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="slds-text-title">AI Analysis Complete</span>
+                            </div>
+                            <div class="ai-summary-content">
+                                {aiSummaryText}
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Close"
+                        onclick={closeAISummaryModal}>
+                    </lightning-button>
+                    <template if:true={showSummaryContent}>
+                        <lightning-button
+                            label="Regenerate"
+                            variant="brand"
+                            onclick={regenerateSummary}
+                            class="slds-m-left_x-small">
+                        </lightning-button>
+                    </template>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

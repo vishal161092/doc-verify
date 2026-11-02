@@ -1,0 +1,84 @@
+.report-container {
+    padding: 0;
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.header-icon-wrapper {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.document-icon {
+    color: white;
+}
+
+.report-title {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.report-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+}
+
+.verification-sections {
+    padding: 1.5rem;
+}
+
+.verification-legend {
+    background-color: #e8f4f8;
+    border: 1px solid #b0d7e6;
+    border-radius: 0.25rem;
+    padding: 1rem 1.5rem;
+    margin: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.legend-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.legend-title {
+    font-weight: 600;
+    color: #014486;
+    font-size: 0.875rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.legend-label {
+    font-weight: 600;
+    color: #014486;
+    min-width: 4rem;
+}
+
+.legend-description {
+    color: #3e3e3c;
+}

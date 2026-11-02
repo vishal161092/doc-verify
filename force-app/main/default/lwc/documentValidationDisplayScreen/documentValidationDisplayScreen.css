@@ -1,0 +1,16 @@
+.validation-container {
+    width: 100%;
+    padding: 20px;
+    background: #f4f6f9;
+    min-height: 400px;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #706e6b;
+    font-size: 16px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #dddbda;
+}

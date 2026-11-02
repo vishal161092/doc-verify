@@ -1,0 +1,95 @@
+<template>
+    <div class="slds-card slds-card_boundary">
+        
+        <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="utility:file" size="small"></lightning-icon>
+            <span style="padding-left:10px;color:#5C5C5C;font-size: 16px;font-weight: 600;">Files</span>
+        </h3>
+        
+    
+        <!-- show or hide header -->
+        <template if:true={showFileHeader}>
+            <div class="slds-page-header">{fileHeaderText}</div>
+        </template>
+        <div class="slds-align_absolute-center">
+            <lightning-file-upload label="Upload File" name="fileUploader" accept={acceptFileTypes} record-id={recordId}
+                onuploadfinished={handleUploadFinished} multiple={uploadMultiple}>
+            </lightning-file-upload>
+        </div>
+
+        <br />
+        <template if:true={showTable}>
+            <div class="slds-form--compound tableStyle">
+                <!-- <lightning-input type="checkbox" label="Show all files?" name="input1" onchange={handleChange}
+                    value={checkedStatus}>
+                </lightning-input> -->
+
+                <table class="slds-table slds-table--bordered">
+                    <!-- hide the table header if file is empty -->
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>File Type</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={filesReturned} for:item="currFile">
+                            <tr key={currFile.Id}>
+                                <td>
+                                    <span class="">
+                                        <div class="slds-truncate" style="display: flex;">
+                                            <img src={currFile.imageUrl} style="width: 40px; height: 30px;"/>
+                                            
+                                            <lightning-input style="padding-left: 8px; width: 85%;" type="text" variant="label-hidden" onblur={saveRename}
+                                                data-recordid={currFile.Id} value={currFile.Title}
+                                                readonly={isReadOnly}></lightning-input>
+                                            
+
+                                        </div>
+                                        <!-- <lightning-button-icon size="x-small" data-recordid={currFile.Id}
+                                            icon-name="utility:preview" alternative-text="Preview"
+                                            onclick={previewFile}>
+                                        </lightning-button-icon> -->
+                                        <!-- <lightning-button-icon size="x-small" data-recordid={currFile.Id}
+                                            icon-name="utility:edit" alternative-text="Delete" onclick={editInput}>
+                                        </lightning-button-icon> -->
+                                    </span>
+
+
+                                </td>
+                                <td>{currFile.FileType}</td>
+                                <td>
+                                    <lightning-button-icon size="x-small" data-recordid={currFile.Id}
+                                            icon-name="utility:preview" alternative-text="Preview"
+                                            onclick={previewFile}>
+                                        </lightning-button-icon>
+                                </td>
+                                <td>
+                                    <lightning-button-icon size="x-small" data-recordid={currFile.Id}
+                                        icon-name="utility:delete" alternative-text="Delete"
+                                        onclick={deleteSelectedFile}>
+                                    </lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+
+                    </tbody>
+                </table>
+                <!-- show spinner logo when needed -->
+                <template if:true={showSpinner}>
+                    <div class="slds-spinner_container">
+                        <div class="slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+        </template>
+        </lightning-card>
+    </div>
+</template>

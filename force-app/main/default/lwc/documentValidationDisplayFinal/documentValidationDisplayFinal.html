@@ -1,0 +1,264 @@
+<template>
+    <div class="doc-validator-container">
+        
+        <!-- Error State -->
+        <template if:true={hasError}>
+            <div class="error-container">
+                <div class="error-icon">⚠️</div>
+                <h2>Error Loading Document</h2>
+                <p>{errorMessage}</p>
+            </div>
+        </template>
+
+        <!-- Success State -->
+        <template if:false={hasError}>
+            
+            <!-- Header Section -->
+            <div class="header-section">
+                <div class="header-left">
+                    <div class="doc-icon">📄</div>
+                    <div class="doc-info">
+                        <h1 class="doc-title">{documentTitle}</h1>
+                        <p class="doc-id">{documentId}</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="confidence-badge">
+                        <span class="confidence-label">Confidence Score</span>
+                        <span class="confidence-value">{confidenceScore}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Banner - Approved -->
+            <template if:true={isApproved}>
+                <div class="status-approved">
+                    <div class="status-icon">✓</div>
+                    <div class="status-content">
+                        <h2 class="status-title">{headerMessage}</h2>
+                        <p class="status-subtitle">{headerSubMessage}</p>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Status Banner - Rejected -->
+            <template if:true={isRejected}>
+                <div class="status-rejected">
+                    <div class="status-icon">⚠</div>
+                    <div class="status-content">
+                        <h2 class="status-title">{headerMessage}</h2>
+                        <p class="status-subtitle">{headerSubMessage}</p>
+                    </div>
+                    <div class="status-badges">
+                        <template for:each={statusBadges} for:item="badge">
+                            <span key={badge.label} class="status-badge">{badge.label}</span>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Status Banner - Missing -->
+            <template if:true={isMissing}>
+                <div class="status-missing">
+                    <div class="status-icon">⚠</div>
+                    <div class="status-content">
+                        <h2 class="status-title">{headerMessage}</h2>
+                        <p class="status-subtitle">{headerSubMessage}</p>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Main Content -->
+            <div class="content-area">
+                
+                <!-- Quick Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-expired">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-content">
+                            <div class="stat-label">EXPIRED</div>
+                            <div class="stat-value">
+                                <template if:true={expiryDetails.isExpired}>
+                                    {expiryDetails.daysExpired} days ago
+                                </template>
+                                <template if:false={expiryDetails.isExpired}>
+                                    No
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-complete">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-content">
+                            <div class="stat-label">{completenessScore}</div>
+                            <div class="stat-value">Complete</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-quality">
+                        <div class="stat-icon">✓</div>
+                        <div class="stat-content">
+                            <div class="stat-label">{qualityScore}</div>
+                            <div class="stat-value">Quality</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-confidence">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-label">{confidenceScore}</div>
+                            <div class="stat-value">Confidence</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Issues Section -->
+                <template if:true={hasIssues}>
+                    <div class="section-card issues-section">
+                        <div class="section-header">
+                            <span class="section-icon">⚠️</span>
+                            <h3 class="section-title">Issues Detected ({issuesCount})</h3>
+                        </div>
+                        <div class="section-content">
+                            <template for:each={issues} for:item="issue">
+                                <div key={issue.key} class="issue-item">
+                                    <div class="issue-header">
+                                        <span class="issue-title">{issue.title}</span>
+                                        <span class="issue-severity">{issue.severity}</span>
+                                    </div>
+                                    <p class="issue-message">{issue.message}</p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Expiry Details Section -->
+                <template if:true={expiryDetails}>
+                    <div class="section-card expiry-section">
+                        <div class="section-header">
+                            <span class="section-icon">📅</span>
+                            <h3 class="section-title">Expiry Details</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="detail-label">Issue Date:</span>
+                                    <span class="detail-value">{expiryDetails.issueDate}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Expiry Date:</span>
+                                    <span class="detail-value expiry-date">{expiryDetails.expiryDate}</span>
+                                </div>
+                                <template if:true={expiryDetails.isExpired}>
+                                    <div class="detail-item full-width">
+                                        <span class="detail-label">Days Expired:</span>
+                                        <span class="detail-value days-expired">{expiryDetails.daysExpired}</span>
+                                    </div>
+                                </template>
+                                <template if:false={expiryDetails.isExpired}>
+                                    <div class="detail-item full-width">
+                                        <span class="detail-label">Status:</span>
+                                        <span class="detail-value valid-status">
+                                            <template if:true={expiryDetails.expiryDate}>
+                                                ✓ Valid document
+                                            </template>
+                                            <template if:false={expiryDetails.expiryDate}>
+                                                ✓ No expiry date
+                                            </template>
+                                        </span>
+                                    </div>
+                                </template>
+                            </div>
+                            <template if:true={expiryDetails.warningMessage}>
+                                <div class="expiry-warning">
+                                    <span class="warning-icon">⚠️</span>
+                                    <span>{expiryDetails.warningMessage}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Completeness Section -->
+                <div class="section-card completeness-section">
+                    <div class="section-header">
+                        <span class="section-icon">📊</span>
+                        <h3 class="section-title">Completeness</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="progress-wrapper">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-percentage">{completenessScore}</span>
+                            </div>
+                            <div class="progress-bar-outer">
+                                <div class={completenessDetails.progressClass} 
+                                     data-percentage={completenessDetails.percentage}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={hasMissingFields}>
+                            <div class="fields-section">
+                                <h4 class="fields-title">Missing Fields</h4>
+                                <div class="field-pills">
+                                    <template for:each={completenessDetails.missingFields} for:item="field">
+                                        <span key={field} class="field-pill missing-pill">• {field}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:true={hasUnreadableFields}>
+                            <div class="fields-section">
+                                <h4 class="fields-title">Unreadable Fields</h4>
+                                <div class="field-pills">
+                                    <template for:each={completenessDetails.unreadableFields} for:item="field">
+                                        <span key={field} class="field-pill unreadable-pill">• {field}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:false={hasMissingFields}>
+                            <template if:false={hasUnreadableFields}>
+                                <p class="all-fields-present">✓ All required fields are present and readable</p>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Extracted Information Section -->
+                <div class="section-card extracted-section">
+                    <div class="section-header">
+                        <span class="section-icon">📝</span>
+                        <h3 class="section-title">Extracted Information</h3>
+                    </div>
+                    <div class="section-content">
+                        <template for:each={gridFields} for:item="row">
+                            <div key={row.key} class="field-row">
+                                <div class="field-box">
+                                    <div class="field-label">{row.left.label}</div>
+                                    <div class="field-value">{row.left.value}</div>
+                                </div>
+                                <template if:true={row.right}>
+                                    <div class="field-box">
+                                        <div class="field-label">{row.right.label}</div>
+                                        <div class="field-value">{row.right.value}</div>
+                                    </div>
+                                </template>
+                                <template if:false={row.right}>
+                                    <div class="field-box field-box-empty"></div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+
+        </template>
+    </div>
+</template>

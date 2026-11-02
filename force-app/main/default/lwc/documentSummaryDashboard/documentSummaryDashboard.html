@@ -1,0 +1,139 @@
+<template>
+    <div class="main-card">
+        <!-- Header -->
+        <div class="card-header">
+            <div class="card-header-content">
+                <div class="header-flex">
+                    <div class="header-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="card-title">{cardTitle}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <template if:true={hasError}>
+            <div class="error-container">
+                <div class="error-message">{error}</div>
+            </div>
+        </template>
+
+        <!-- Main Content -->
+        <template if:true={hasDocuments}>
+            <!-- Progress Section -->
+            <template if:true={showProgressBar}>
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <div class="progress-title">Upload Progress</div>
+                        <div class="progress-count">{counts.uploadedDocuments} of {counts.totalDocuments} documents</div>
+                    </div>
+                    <div class="custom-progress-bar">
+                        <div class={progressBarClass}></div>
+                    </div>
+                    <div class="progress-percentage">{progressPercentage}% Complete</div>
+                </div>
+            </template>
+
+            <!-- Statistics -->
+            <div class="stats-container">
+                <div class="stat-box success">
+                    <div class="stat-number">{counts.uploadedDocuments}</div>
+                    <div class="stat-label">Uploaded</div>
+                </div>
+                <div class="stat-box error">
+                    <div class="stat-number">{counts.missingDocuments}</div>
+                    <div class="stat-label">Missing</div>
+                </div>
+                <div class="stat-box neutral">
+                    <div class="stat-number">{counts.totalDocuments}</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+
+            <!-- Documents Grid -->
+            <div class="documents-grid">
+                <template for:each={documentData} for:item="doc">
+                    <div key={doc.id} class={columnClass}>
+                        <!-- Uploaded Document -->
+                        <template if:true={doc.isUploaded}>
+                            <div class="doc-card uploaded">
+                                <div class="doc-content">
+                                    <div class="doc-icon-success">
+                                        <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">{doc.title}</div>
+                                        <span class="status-badge badge-success">✓ Uploaded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Missing Document -->
+                        <template if:true={doc.isMissing}>
+                            <div class="doc-card missing">
+                                <div class="doc-content">
+                                    <div class="doc-icon-error">
+                                        <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                                            <path d="M12 2L1 21h22L12 2zm1 16h-2v-2h2v2zm0-4h-2V8h2v6z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">{doc.title}</div>
+                                        <span class="status-badge badge-error">✗ Missing</span>
+                                        <template if:true={doc.message}>
+                                            <div class="doc-message">{doc.message}</div>
+                                        </template>
+                                        <template if:true={doc.isHighSeverity}>
+                                            <span class="priority-badge">High Priority</span>
+                                        </template>
+                                        <template if:true={doc.isMediumSeverity}>
+                                            <span class="priority-badge medium">Medium Priority</span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Pending Document -->
+                        <template if:true={doc.isPending}>
+                            <div class="doc-card pending">
+                                <div class="doc-content">
+                                    <div class="doc-icon-pending">
+                                        <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">{doc.title}</div>
+                                        <span class="status-badge badge-pending">⏳ Pending</span>
+                                        <template if:true={doc.message}>
+                                            <div class="doc-message">{doc.message}</div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Empty State -->
+        <template if:false={hasDocuments}>
+            <template if:false={hasError}>
+                <div class="empty-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#ccc">
+                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                    </svg>
+                    <p class="empty-text">No documents to display</p>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

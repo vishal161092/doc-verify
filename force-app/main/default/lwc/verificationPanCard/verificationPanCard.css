@@ -1,0 +1,72 @@
+.verification-container {
+    padding: 0;
+    border-left: 4px solid;
+}
+
+.error-border {
+    border-left-color: #ea001e;
+}
+
+.warning-border {
+    border-left-color: #ffb75d;
+}
+
+.success-border {
+    border-left-color: #2e844a;
+}
+
+.verification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f3f3f3;
+}
+
+.header-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.header-icon {
+    background-color: #d4d9f7;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.status-badge.mismatch { background-color: #c23934; color: white; }
+.status-badge.partial  { background-color: #ffb75d; color: #181818; }
+.status-badge.match    { background-color: #2e844a; color: white; }
+
+.table-header {
+    background-color: #f3f3f3;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.field-name-cell {
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.value-cell {
+    padding: 1rem;
+}
+
+.status-badge-small {
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.status-badge-small.error   { background: #fdd6d6; color: #8b1a1a; }
+.status-badge-small.success { background: #c9f2d5; color: #0b6623; }

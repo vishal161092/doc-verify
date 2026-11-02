@@ -1,0 +1,162 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:verification">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            
+            <template if:true={hasError}>
+                <div class="slds-text-color_error">
+                    <lightning-icon icon-name="utility:error" size="small" class="slds-m-right_x-small"></lightning-icon>
+                    {errorMessage}
+                </div>
+                <div class="slds-m-top_small slds-text-color_weak" style="font-size: 0.75rem;">
+                    Check browser console for detailed error information.
+                </div>
+            </template>
+            
+            <template if:true={hasData}>
+                <lightning-accordion allow-multiple-sections-open>
+                    <lightning-accordion-section name="pan" label="PAN Verification">
+                        <template if:true={hasPanData}>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Comparison Type">Comparison Type</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Value in Document">Value in Document</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Application Record Value">Application Record Value</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Match %">Match %</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Status">Status</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={panVerificationData} for:item="row">
+                                        <tr key={row.key} class="slds-hint-parent">
+                                            <td data-label="Comparison Type">
+                                                <div class="slds-truncate" title={row.label}>{row.label}</div>
+                                            </td>
+                                            <td data-label="Value in Document">
+                                                <div class="slds-truncate" title={row.cardValue}>{row.cardValue}</div>
+                                            </td>
+                                            <td data-label="Application Record Value">
+                                                <div class="slds-truncate" title={row.applicationValue}>{row.applicationValue}</div>
+                                            </td>
+                                            <td data-label="Match %">
+                                                <div class="slds-truncate" title={row.matchPercentageFormatted}>
+                                                    <template if:true={row.hasMatchPercentage}>
+                                                        {row.matchPercentageFormatted}
+                                                    </template>
+                                                    <template if:false={row.hasMatchPercentage}>
+                                                        <span class="slds-text-color_weak">—</span>
+                                                    </template>
+                                                </div>
+                                            </td>
+                                            <td data-label="Status">
+                                                <lightning-icon 
+                                                    icon-name={row.statusIcon} 
+                                                    size="small" 
+                                                    class={row.statusClass}
+                                                    title={row.statusLabel}>
+                                                </lightning-icon>
+                                                <span class="slds-m-left_x-small">{row.statusLabel}</span>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template if:false={hasPanData}>
+                            <div class="slds-text-color_weak">No PAN verification data available.</div>
+                        </template>
+                    </lightning-accordion-section>
+                    
+                    <lightning-accordion-section name="aadhar" label="Aadhar Verification">
+                        <template if:true={hasAadharData}>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Comparison Type">Comparison Type</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Value in Document">Value in Document</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Application Record Value">Application Record Value</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Match %">Match %</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Status">Status</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={aadharVerificationData} for:item="row">
+                                        <tr key={row.key} class="slds-hint-parent">
+                                            <td data-label="Comparison Type">
+                                                <div class="slds-truncate" title={row.label}>{row.label}</div>
+                                            </td>
+                                            <td data-label="Value in Document">
+                                                <div class="slds-truncate" title={row.cardValue}>{row.cardValue}</div>
+                                            </td>
+                                            <td data-label="Application Record Value">
+                                                <div class="slds-truncate" title={row.applicationValue}>{row.applicationValue}</div>
+                                            </td>
+                                            <td data-label="Match %">
+                                                <div class="slds-truncate" title={row.matchPercentageFormatted}>
+                                                    <template if:true={row.hasMatchPercentage}>
+                                                        {row.matchPercentageFormatted}
+                                                    </template>
+                                                    <template if:false={row.hasMatchPercentage}>
+                                                        <span class="slds-text-color_weak">—</span>
+                                                    </template>
+                                                </div>
+                                            </td>
+                                            <td data-label="Status">
+                                                <lightning-icon 
+                                                    icon-name={row.statusIcon} 
+                                                    size="small" 
+                                                    class={row.statusClass}
+                                                    title={row.statusLabel}>
+                                                </lightning-icon>
+                                                <span class="slds-m-left_x-small">{row.statusLabel}</span>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template if:false={hasAadharData}>
+                            <div class="slds-text-color_weak">No Aadhar verification data available.</div>
+                        </template>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </template>
+            
+            <template if:true={isEmpty}>
+                <div class="slds-text-color_weak">
+                    <lightning-icon icon-name="utility:info" size="small" class="slds-m-right_x-small"></lightning-icon>
+                    No verification data available.
+                </div>
+                <div class="slds-m-top_small" style="font-size: 0.75rem;">
+                    <div>Object: {objectApiName}</div>
+                    <div>Field: {fieldApiName}</div>
+                    <div>Record ID: {recordId}</div>
+                    <div>Check browser console for debugging information.</div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

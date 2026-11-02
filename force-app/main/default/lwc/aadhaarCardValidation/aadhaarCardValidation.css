@@ -1,0 +1,377 @@
+.validation-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Header Styles */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-container {
+    width: 48px;
+    height: 48px;
+    background: #EEF2FF;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.doc-type {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.doc-id {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+
+.header-right {
+    text-align: right;
+}
+
+.confidence-label {
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.confidence-score {
+    font-size: 32px;
+    font-weight: 700;
+    color: #059669;
+    line-height: 1;
+    margin-top: 4px;
+}
+
+/* Status Banner */
+.status-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    margin: 0;
+}
+
+.status-banner.success {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.status-banner.error {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+}
+
+.status-icon {
+    flex-shrink: 0;
+}
+
+.status-content {
+    color: white;
+}
+
+.status-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.status-subtitle {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Flag Boxes */
+.flag-boxes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 24px;
+    background: #fafafa;
+}
+
+.flag-box {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.flag-box.success {
+    border-color: #10b981;
+}
+
+.flag-box.error {
+    border-color: #ef4444;
+}
+
+.flag-icon {
+    margin: 0 auto 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.flag-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.flag-value {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Section Styles */
+.section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+}
+
+.section-icon {
+    font-size: 20px;
+}
+
+.section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+    letter-spacing: 0.5px;
+}
+
+.section-content {
+    padding: 20px 24px;
+}
+
+/* Expiry Section */
+.expiry-section {
+    background: #ecfdf5;
+}
+
+.expiry-content {
+    background: #f0fdf4;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-col {
+    flex: 1;
+}
+
+.info-col.full-width {
+    flex: 1 1 100%;
+}
+
+.info-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.status-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-text.success-text {
+    color: #059669;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: 16px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.progress-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.3px;
+}
+
+.progress-percentage {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316 0%, #fb923c 100%);
+    transition: width 0.3s ease;
+}
+
+.completeness-message {
+    margin-top: 12px;
+}
+
+/* Extracted Data */
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.data-item {
+    padding: 12px 0;
+}
+
+.data-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.data-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.data-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Issues */
+.issues-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.issue-item {
+    padding: 12px 16px;
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+    color: #991b1b;
+    font-weight: 600;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.missing-fields {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fef2f2;
+    border-radius: 8px;
+}
+
+.missing-title {
+    font-weight: 700;
+    color: #991b1b;
+    margin-bottom: 8px;
+}
+
+.missing-fields ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #991b1b;
+}
+
+/* Action Button */
+.action-container {
+    padding: 24px;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.upload-button {
+    width: 100%;
+    padding: 14px 24px;
+    background: #3b4f66;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-button:hover {
+    background: #2d3e50;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 79, 102, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .flag-boxes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .data-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

@@ -1,0 +1,76 @@
+<template>
+    <template if:true={data}>
+
+        <div class="card">
+            <h2 class="title">{data.title}</h2>
+
+            <!-- STATUS -->
+            <div class={statusClass}>
+                <span class="status-label">Status:</span> {data.status}
+            </div>
+
+            <!-- CONFIDENCE -->
+            <p class="confidence">
+                Confidence Score: <strong>{data.confidence}%</strong>
+            </p>
+
+            <!-- FLAGS -->
+            <div class="section-header">Document Flags</div>
+            <ul class="flags">
+                <li class={blankClass}>Blank: {data.flags.isBlank}</li>
+                <li class={blurredClass}>Blurred: {data.flags.isBlurred}</li>
+                <li class={expiredClass}>Expired: {data.flags.isExpired}</li>
+                <li class={incompleteClass}>Incomplete: {data.flags.isIncomplete}</li>
+            </ul>
+
+            <!-- EXPIRY -->
+            <template if:true={data.expiry}>
+                <div class="section-header">Expiry Details</div>
+                <p>Issue Date: {data.expiry.issueDate}</p>
+                <p>Expiry Date: {data.expiry.expiryDate}</p>
+                <p>Days Remaining: {data.expiry.daysRemaining}</p>
+                <p>Valid: {data.expiry.isValid}</p>
+            </template>
+
+            <!-- COMPLETENESS -->
+            <template if:true={data.completeness}>
+                <div class="section-header">Completeness</div>
+                <p>Percentage: {data.completeness.percentage}%</p>
+
+                <template if:true={data.completeness.missingFields.length}>
+                    <p class="missing-title">Missing Fields:</p>
+                    <ul>
+                        <template for:each={data.completeness.missingFields} for:item="field">
+                            <li key={field}>{field}</li>
+                        </template>
+                    </ul>
+                </template>
+            </template>
+
+            <!-- EXTRACTED DATA -->
+            <template if:true={data.extractedData}>
+                <div class="section-header">Extracted Data</div>
+                <p>License No: {data.extractedData.licenseNumber}</p>
+                <p>Name: {data.extractedData.fullName}</p>
+                <p>DOB: {data.extractedData.dateOfBirth}</p>
+                <p>Address: {data.extractedData.address}</p>
+            </template>
+
+            <!-- ISSUES LIST -->
+            <template if:true={data.issues.length}>
+                <div class="section-header">Issues</div>
+                <ul>
+                    <template for:each={data.issues} for:item="issue">
+                        <li key={issue} class="issue-item">{issue}</li>
+                    </template>
+                </ul>
+            </template>
+
+        </div>
+
+    </template>
+
+    <template if:false={data}>
+        <p class="no-data">No validation details available.</p>
+    </template>
+</template>

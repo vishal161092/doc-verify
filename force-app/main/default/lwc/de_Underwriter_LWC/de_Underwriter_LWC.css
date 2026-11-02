@@ -1,0 +1,229 @@
+.table-head-custom{
+	background-color: #E6E5E6;
+    padding: 10px 0px 10px 0px;
+    font-weight: 700;
+    color: #032D60;
+	text-align: center;
+}
+.table-body-custom{
+	border-color: #E0DFE1;
+    border-style: solid;
+    border-width: 2px;
+	display: -webkit-box;
+}
+.table-body-cell-custom{
+	padding: 10px;
+	border-color: #E0DFE1;
+    border-style: solid;
+    border-width: 2px;
+	text-align: center;
+}
+.table-body-first-col{
+	text-align: left;
+}
+.table-padding-top{
+	padding-top: 20px;
+}
+.table-padding-bottom{
+	padding-bottom: 20px;
+}
+.pointerCur{
+	cursor: pointer;
+}
+.previous-data-text-align{
+	text-align: right;
+}
+.slds-accordion {
+    border-width: 0px;
+}
+.accordion-section-padding-top {
+	--slds-c-accordion-section-spacing-block-start: 25px;
+}
+.table-head-custom{
+	background-color: #E6E5E6;
+    padding: 10px 0px 10px 0px;
+    font-weight: 700;
+    color: #032D60;
+	text-align: center;
+}
+.table-body-custom{
+	border-color: #E0DFE1;
+    border-style: solid;
+    border-width: 2px;
+	display: -webkit-box;
+}
+.table-body-cell-custom{
+	padding: 10px;
+	border-color: #E0DFE1;
+    border-style: solid;
+    border-width: 2px;
+	text-align: center;
+}
+.table-body-first-col{
+	text-align: left;
+}
+.table-padding-top{
+	padding-top: 20px;
+}
+.pointerCur{
+	cursor: pointer;
+}
+.hide-container{
+	display: none;
+}
+.font-style{
+    font-family: "Salesforce Sans";
+}
+.loading-Einstein-Img{
+	height: 120px;
+	border-radius: 5rem;
+}
+.img-align{
+	text-align: center;
+    padding-right: 16px;
+}
+.img-container{
+	height: 1.5rem;
+}
+.custom-width{
+	width: 34%;
+	padding-left: 4px;
+}
+.progress-font-color{
+	color: #0000008f;
+}
+.custom-section-font{
+    font-size: 14px;
+	padding-left: 6px;
+    padding-top: 10px;
+}
+.loading-text-top-padding{
+
+}
+.loading-text-padding{
+	padding-top: 4px;
+}
+.loading-text-padding-left{
+	padding-left: 16px;
+}
+.loading-text-weight{
+}
+.custom-text-weight{
+	padding-left: 0.1rem;
+}
+.icon-complete-color{
+	--sds-c-icon-color-foreground-default: #0176D3!important;
+	padding-right: 10px;
+}
+.icon-color{
+	--sds-c-icon-color-foreground-default: #0176D3!important;
+}
+.main-container{
+	padding: 2rem;
+}
+.main-card-heading{
+	border-radius: 20px;
+	background: var(--Light-Core-Base-Highlight-1, #E3F8FF);
+	padding: 1.5rem;
+}
+.hr-custom-style{
+	margin: 12px 0px 0px 0px;
+}
+.label-color{
+	color: #747474;
+	font-weight: 700;
+}
+.icon-space{
+	width: 64px;
+}
+.header-custom-width{
+	width: 80%;
+}
+.header-main-heading{
+	font-size: 20px;
+    font-weight: 700;
+}
+.header-sub-heading{
+	font-size: 16px;
+    font-weight: 400;
+}
+.header-main-heading-card{
+	font-size: 16px;
+    font-weight: 700;
+}
+.header-sub-heading-card{
+	font-size: 14px;
+    font-weight: 400;
+}
+.heading-button-style{
+	display: flex;
+	padding: 8px 20px;
+	width: fit-content;
+	justify-content: center;
+	align-items: center;
+	gap: 25px;
+	border-radius: 58px;
+	background: var(--Foundation-Green-Green-50, #2E844A);
+	color: white;
+}
+.custom-pad-top{
+}
+.custom-pad-top-left-pad{
+	padding-left: 10px;
+	font-weight: 700;
+}
+.line-height-custom{
+	line-height: 14px;
+}
+.custom-pad-top-card{
+	font-size: 14px;
+}
+.custom-width-tile{
+	width: 48%;
+	display: inline-block;
+	padding: 18px;
+}
+.custom-width-tile-internal{
+	width: 68%;
+}
+.heading-summary-label{
+    color: #747474;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 128.219%;
+}
+.summary-style{
+    color: var(--Text-Default, #181818);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 128.219%;
+}
+.align-button{
+	text-align: -webkit-right;
+}
+.align-button-card{
+	width: 32%;
+	text-align: -webkit-right;
+}
+.success-message{
+	font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: #008000;
+    padding: 13px;
+    text-align: center;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+.td-custom-style {
+	text-align: center;
+    padding: 12px 0px 12px 0px;
+}
+.td-data-custom-style {
+	text-align: center;
+}
+.padding-fix{
+	width: 20px;
+}

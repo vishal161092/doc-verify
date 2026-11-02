@@ -1,0 +1,74 @@
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.status {
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.status.success {
+    background: #e7f9ed;
+    color: #1b873f;
+    border: 1px solid #1b873f;
+}
+
+.status.error {
+    background: #fdeaea;
+    color: #d60000;
+    border: 1px solid #d60000;
+}
+
+.section-header {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.flags {
+    list-style: none;
+    padding-left: 0;
+}
+
+.flag {
+    padding: 5px 0;
+}
+
+.flag.good {
+    color: #1b873f;
+    font-weight: 500;
+}
+
+.flag.bad {
+    color: #d60000;
+    font-weight: 600;
+}
+
+.missing-title {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.issue-item {
+    color: #d60000;
+    font-weight: 600;
+}
+
+.no-data {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+}

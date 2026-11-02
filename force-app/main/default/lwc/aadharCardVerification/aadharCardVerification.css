@@ -1,0 +1,124 @@
+.verification-container {
+    padding: 0;
+    border-left: 4px solid;
+}
+
+.error-border {
+    border-left-color: #ea001e;
+}
+
+.warning-border {
+    border-left-color: #ffb75d;
+}
+
+.success-border {
+    border-left-color: #2e844a;
+}
+
+.verification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f3f3f3;
+} 
+
+.header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.header-icon {
+    background-color: #e5d4f7;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+}
+
+.header-text h2 {
+    font-weight: 600;
+    color: #181818;
+}
+
+.status-badge {
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.status-badge.mismatch {
+    background-color: #c23934;
+    color: white;
+}
+
+.status-badge.partial {
+    background-color: #ffb75d;
+    color: #181818;
+}
+
+.status-badge.match {
+    background-color: #2e844a;
+    color: white;
+}
+
+.verification-table {
+    padding: 0;
+}
+
+.table-header {
+    background-color: #f3f3f3;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #514f4d;
+    padding: 0.75rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025rem;
+}
+
+.field-name-cell {
+    font-weight: 600;
+    color: #181818;
+    padding: 1rem;
+}
+
+.value-cell {
+    color: #3e3e3c;
+    padding: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.error {
+    background-color: #fdd6d6;
+    color: #8b1a1a;
+    padding: 0.375rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.warning {
+    background-color: #ffeab4;
+    color: #825b00;
+    padding: 0.375rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.success {
+    background-color: #c9f2d5;
+    color: #0b6623;
+    padding: 0.375rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.not-provided {
+    font-style: italic;
+    color: #a8a8a8;
+}

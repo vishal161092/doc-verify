@@ -1,0 +1,230 @@
+<template>
+    <lightning-card>
+        <template if:true={hasData}>
+            <div class="dashboard-container">
+                <!-- Header Section -->
+                <div class="header-section">
+                    <div class="header-left">
+                        <lightning-icon icon-name="utility:shield" size="medium" class="header-icon"></lightning-icon>
+                        <div class="header-text-block">
+                            <h1 class="header-title">Document Validation Dashboard</h1>
+                            <p class="slds-text-body_regular report-subtitle">
+                                ID validation summary ensuring authenticity, correctness, validity, and detection of red-flag anomalies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Counts Section -->
+                <div class="summary-section">
+                    <div class="summary-tile summary-total">
+                        <div class="tile-content">
+                            <div class="summary-label">TOTAL DOCUMENTS</div>
+                            <div class="summary-value">{summaryCounts.totalDocuments}</div>
+                        </div>
+                        <lightning-icon icon-name="utility:file" size="medium" class="tile-icon tile-icon-blue"></lightning-icon>
+                    </div>
+                    <div class="summary-tile summary-uploaded">
+                        <div class="tile-content">
+                            <div class="summary-label">UPLOADED</div>
+                            <div class="summary-value">{summaryCounts.uploadedDocuments}</div>
+                        </div>
+                        <lightning-icon icon-name="utility:success" size="medium" class="tile-icon tile-icon-green"></lightning-icon>
+                    </div>
+                    <div class="summary-tile summary-missing">
+                        <div class="tile-content">
+                            <div class="summary-label">MISSING</div>
+                            <div class="summary-value">{summaryCounts.missingDocuments}</div>
+                        </div>
+                        <lightning-icon icon-name="utility:warning" size="medium" class="tile-icon tile-icon-yellow"></lightning-icon>
+                    </div>
+                    <div class="summary-tile summary-expired">
+                        <div class="tile-content">
+                            <div class="summary-label">EXPIRED</div>
+                            <div class="summary-value">{summaryCounts.expiredDocuments}</div>
+                        </div>
+                        <lightning-icon icon-name="utility:error" size="medium" class="tile-icon tile-icon-red"></lightning-icon>
+                    </div>
+                </div>
+
+                <!-- Document Cards -->
+                <template for:each={documentList} for:item="doc">
+                    <div key={doc.key} class="document-card">
+                        <!-- Document Header Banner -->
+                        <div class={doc.statusClass}>
+                            <div class="header-left">
+                                <lightning-icon icon-name={doc.statusIcon} size="small" class="doc-header-icon"></lightning-icon>
+                                <div class="header-text">
+                                    <div class="doc-title">{doc.title}</div>
+                                    <div class="doc-status">{doc.status}</div>
+                                </div>
+                            </div>
+                            <template if:true={doc.confidence}>
+                                <div class="header-right">
+                                    <div class="confidence-label">Confidence</div>
+                                    <div class="confidence-value">{doc.confidence}%</div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Missing Document Warning Message -->
+                        <template if:true={doc.message}>
+                            <div class={doc.warningClass}>
+                                <lightning-icon icon-name="utility:warning" size="x-small" class="warning-icon"></lightning-icon>
+                                <span class="warning-text">{doc.message}</span>
+                                <template if:true={doc.severity}>
+                                    <span class={doc.severityClass}>{doc.severity} PRIORITY</span>
+                                </template>
+                            </div>
+                        </template>
+
+                        <template if:true={doc.showDetails}>
+                            <!-- Validation Flags -->
+                            <template if:true={doc.flags}>
+                                <template if:true={doc.flags.length}>
+                                    <div class="section section-flags">
+                                        <div class="section-title">VALIDATION FLAGS</div>
+                                        <div class="flags-container">
+                                            <template for:each={doc.flags} for:item="flag">
+                                                <div key={flag.key} class="flag-row">
+                                                    <span class="flag-label">{flag.label}</span>
+                                                    <lightning-icon
+                                                        icon-name={flag.iconName}
+                                                        size="xx-small"
+                                                        class={flag.iconClass}
+                                                    ></lightning-icon>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+
+                            <!-- Completeness -->
+                            <template if:true={doc.completeness}>
+                                <div class="section section-completeness">
+                                    <div class="completeness-header">
+                                        <div class="section-title">COMPLETENESS</div>
+                                        <div class="completeness-percentage">{doc.completeness.percentage}%</div>
+                                    </div>
+                                    <lightning-progress-bar
+                                        value={doc.completeness.percentage}
+                                        size="small"
+                                        variant="base"
+                                        class="completeness-bar"
+                                    ></lightning-progress-bar>
+                                    <template if:true={doc.completeness.missingFields}>
+                                        <template if:true={doc.completeness.missingFields.length}>
+                                            <div class="missing-fields">
+                                                <span class="missing-label">Missing Fields:</span>
+                                                <template for:each={doc.completeness.missingFields} for:item="field">
+                                                    <span key={field} class="missing-pill">{field}</span>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <!-- Expiry Information -->
+                            <template if:true={doc.expiry}>
+                                <div class="section section-expiry">
+                                    <div class="section-title">EXPIRY INFORMATION</div>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Issue Date</span>
+                                            <span class="info-value">{doc.expiry.issueDate}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Expiry Date</span>
+                                            <span class="info-value">{doc.expiry.expiryDate}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Days Remaining</span>
+                                            <span class="info-value days-remaining">{doc.expiry.daysRemaining}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Status</span>
+                                            <span class="info-value">
+                                                <lightning-icon
+                                                    icon-name={doc.expiry.statusIcon}
+                                                    size="xx-small"
+                                                    class={doc.expiry.statusIconClass}
+                                                ></lightning-icon>
+                                                {doc.expiry.statusText}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <!-- Quality Assessment -->
+                            <template if:true={doc.quality}>
+                                <div class="section section-quality">
+                                    <div class="section-title">QUALITY ASSESSMENT</div>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Readable</span>
+                                            <span class="info-value">
+                                                <lightning-icon
+                                                    icon-name={doc.quality.readableIcon}
+                                                    size="xx-small"
+                                                    class={doc.quality.readableIconClass}
+                                                ></lightning-icon>
+                                            </span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Blur Score</span>
+                                            <span class="info-value">{doc.quality.blurScore}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <!-- Issues -->
+                            <template if:true={doc.issues}>
+                                <template if:true={doc.issues.length}>
+                                    <div class="section section-issues">
+                                        <div class="section-title">ISSUES ({doc.issues.length})</div>
+                                        <div class="issues-list">
+                                            <template for:each={doc.issues} for:item="issue">
+                                                <div key={issue} class="issue-item">
+                                                    <lightning-icon icon-name="utility:error" size="xx-small" class="issue-icon"></lightning-icon>
+                                                    <span>{issue}</span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+
+                            <!-- Extracted Information -->
+                            <template if:true={doc.extracted}>
+                                <template if:true={doc.extracted.length}>
+                                    <div class="section section-extracted">
+                                        <div class="section-title">EXTRACTED INFORMATION</div>
+                                        <div class="extracted-table">
+                                            <template for:each={doc.extracted} for:item="item">
+                                                <div key={item.label} class="extracted-row">
+                                                    <span class="extracted-label">{item.label}:</span>
+                                                    <span class="extracted-value">{item.value}</span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <div class="empty-state">
+                <lightning-icon icon-name="utility:warning" alternative-text="Warning"></lightning-icon>
+                <p>{errorMessage}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

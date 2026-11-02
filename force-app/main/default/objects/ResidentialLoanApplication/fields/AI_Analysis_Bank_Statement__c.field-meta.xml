@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AI_Analysis_Bank_Statement__c</fullName>
+    <description>Stores AI analysis results for Bank Account Statement documents in JSON format</description>
+    <label>AI Analysis - Bank Account Statement</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

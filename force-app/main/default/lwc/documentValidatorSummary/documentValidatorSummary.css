@@ -1,0 +1,243 @@
+:host {
+    display: block;
+}
+
+.card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.doc-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.doc-type {
+    font-size: 0.75rem;
+    color: var(--lwc-colorTextLabel);
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    color: var(--lwc-colorTextWeak);
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    background-color: var(--lwc-colorBackgroundAlt);
+}
+
+.status-success {
+    background: #e3fcef;
+    color: #046c4e;
+}
+
+.status-error {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.status-warning {
+    background: #fff4e5;
+    color: #8a4b00;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
+}
+
+.metric-tile {
+    border: 1px solid var(--lwc-colorBorder);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.7rem;
+    color: var(--lwc-colorTextLabel);
+    text-transform: uppercase;
+}
+
+.metric-value {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.flag {
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.4rem;
+    font-size: 0.65rem;
+    text-transform: capitalize;
+}
+
+.flag-error {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.flag-warning {
+    background: #fff4e5;
+    color: #8a4b00;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.panel {
+    border: 1px solid var(--lwc-colorBorder);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    background: white;
+}
+
+.panel.wide {
+    width: 100%;
+}
+
+.panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.panel__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+}
+
+.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--lwc-colorTextWeak);
+    letter-spacing: 0.04em;
+}
+
+.value {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lwc-colorTextDefault);
+}
+
+.badge {
+    padding: 0.15rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.badge-success {
+    background: #e3fcef;
+    color: #046c4e;
+}
+
+.badge-error {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.badge-warning {
+    background: #fff4e5;
+    color: #8a4b00;
+}
+
+.pill {
+    display: inline-flex;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.7rem;
+    margin-right: 0.25rem;
+}
+
+.pill-warning {
+    background: #fff4e5;
+    color: #8a4b00;
+}
+
+.percentage {
+    font-size: 0.85rem;
+    color: var(--lwc-colorTextLabel);
+}
+
+.issues {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.issue {
+    border: 1px dashed var(--lwc-colorBorder);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.issue-label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.issue-severity {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--lwc-colorTextWeak);
+}
+
+.empty-state {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--lwc-colorTextWeak);
+}
+
+@media (max-width: 640px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .panel__grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}

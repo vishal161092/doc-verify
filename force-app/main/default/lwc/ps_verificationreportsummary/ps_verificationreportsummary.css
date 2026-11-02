@@ -1,0 +1,68 @@
+.details-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Maintain minimum width per table */
+    gap: 16px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+}
+
+.detail-section {
+    flex: 1;
+    min-width: 400px; /* Increased minimum width for each table */
+    max-width: 450px; /* Ensures consistent width for all tables */
+    height: 300px; /* Set consistent height for each table container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the content */
+}
+
+.custom-table {
+    width: 100%;
+    height: 100%; /* Ensures the table fills the container height */
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    table-layout: fixed; /* Ensures columns are evenly spaced */
+}
+
+.custom-table thead th,
+.custom-table tbody td {
+    height: 50px; /* Set consistent cell height */
+    padding: 8px; /* Keep padding consistent */
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    word-wrap: break-word; /* Ensures text doesn't overflow */
+    overflow: hidden; /* Hides overflowing content */
+    text-overflow: ellipsis; /* Adds ellipsis for long text */
+}
+
+.custom-table thead th {
+    background-color: #005eac;
+    color: white;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #c7ddee;
+}
+
+.document-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #005eac;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.no-data-message {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #005eac;
+    background-color: #f9f9f9;
+    border: 1px dashed #005eac;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+}

@@ -1,0 +1,76 @@
+<template>
+    <!-- <lightning-card title="Verification Summary" icon-name="utility:list">
+        <div class="summary-container">
+            <template if:true={summary}>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Attribute Name</th>
+                            <th>Aadhar</th>
+                            <th>PAN</th>
+                            <th>Voter Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={summary} for:item="item">
+                            <tr key={item.key}>
+                                <td>{item.attributeName}</td>
+                                <td>{item.aadhar}</td>
+                                <td>{item.pan}</td>
+                                <td>{item.voterId}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template if:false={summary}>
+                <p class="no-data">No data available.</p>
+            </template>
+        </div>
+    </lightning-card> -->
+
+    <!-- <lightning-card title="Details" icon-name="utility:preview"> -->
+        <lightning-card title="IDP Summary">
+            <div class="details-container">
+                <template if:true={details}>
+                    <template for:each={details} for:item="detail">
+                        <section key={detail.documentType} class="detail-section">
+                            <h3 class="document-title">{detail.documentType}</h3>
+                        <template if:true={detail.dataAvailable}>
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Attribute Name</th>
+                                        <th>Value in Application</th>
+                                        <th>Value in Document</th>
+                                        <th>Matching</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={detail.attributes} for:item="attr">
+                                        <tr key={attr.attributeName}>
+                                            <td>{attr.attributeName}</td>
+                                            <td>{attr.valueInApplication}</td>
+                                            <td>{attr.valueInDocument}</td>
+                                            <td>{attr.matching}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template if:false={detail.dataAvailable}>
+                                <!-- Data Not Available Message -->
+                                    <div class="no-data-message">Integration Data not available.</div>
+                         </template>
+                         </section>
+
+                    </template>
+                    
+                </template>
+                <template if:false={details}>
+                    <p class="no-data">No detailed data available.</p>
+                </template>
+            </div>
+        </lightning-card>
+        
+</template>

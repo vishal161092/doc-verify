@@ -1,0 +1,61 @@
+<template>
+    <div class="slds-card">
+        <div class={containerClass}>
+            <!-- Header Section -->
+            <div class="verification-header">
+                <div class="header-content">
+                    <lightning-icon icon-name="utility:contact_request" size="small" class="header-icon"></lightning-icon>
+                    <div class="header-text">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_xx-small">PAN Card Verification</h2>
+                        <p class="slds-text-body_small slds-text-color_weak">{headerText}</p>
+                    </div>
+                </div>
+                <div class={statusClass}>{overallStatus}</div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="verification-table">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col" class="table-header">COMPARISON TYPE</th>
+                            <th scope="col" class="table-header">VALUE IN DOCUMENT</th>
+                            <th scope="col" class="table-header">VALUE IN APPLICATION</th>
+                            <th scope="col" class="table-header text-center">MATCH %</th>
+                            <th scope="col" class="table-header text-center">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={comparisonRecords} for:item="record">
+                            <tr key={record.id} class="slds-hint-parent">
+                                <td class="field-name-cell">
+                                    <div class="slds-truncate">{record.fieldName}</div>
+                                </td>
+                                <td class="value-cell">
+                                    <div class="slds-truncate">{record.panCardValue}</div>
+                                </td>
+                                <td class="value-cell">
+                                    <div class={record.isNotProvided}>
+                                        {record.applicationValue}
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span class={record.statusVariant}>
+                                        {record.matchPercentage}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <lightning-icon 
+                                        icon-name={record.statusIcon} 
+                                        size="x-small"
+                                        variant={record.statusVariant}>
+                                    </lightning-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

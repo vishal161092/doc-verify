@@ -1,0 +1,130 @@
+<template>
+    <lightning-card title="Document Validation Dashboard" icon-name="custom:custom85">
+        <template if:true={hasData}>
+            <div class="wrapper">
+
+                <!-- HEADER -->
+                <div class="header">
+                    <div class="header-left">
+                        <lightning-icon
+                            icon-name={currentDoc.icon}
+                            size="small"
+                            class="doc-icon">
+                        </lightning-icon>
+
+                        <div class="title-block">
+                            <span class="doc-title">{currentDoc.label}</span>
+                            <span class="doc-subtitle">{currentDoc.documentType}</span>
+                            <span class="timestamp">
+                                <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
+                                Updated {currentDoc.timestamp}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class={currentDoc.statusClass}>
+                        <lightning-icon icon-name={currentDoc.statusIcon} size="xx-small"></lightning-icon>
+                        <span>{currentDoc.statusLabel}</span>
+                    </div>
+                </div>
+
+                <!-- METRICS -->
+                <div class="metrics">
+                    <template for:each={currentDoc.metrics} for:item="m">
+                        <div key={m.label} class="metric-tile">
+                            <span class="metric-label">{m.label}</span>
+                            <span class="metric-value">{m.value}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- FLAGS -->
+                <template if:true={currentDoc.flags.length}>
+                    <div class="flags">
+                        <template for:each={currentDoc.flags} for:item="flag">
+                            <span key={flag.label} class={flag.css}>
+                                <lightning-icon icon-name={flag.icon} size="xx-small"></lightning-icon>
+                                {flag.label}: {flag.value}
+                            </span>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- PANELS -->
+                <div class="sections">
+
+                    <!-- EXPIRY PANEL -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <lightning-icon icon-name="utility:date_input" size="x-small"></lightning-icon>
+                            <span>Expiry Details</span>
+                        </div>
+
+                        <div class="panel-grid">
+                            <div>
+                                <span class="label">Issue Date</span>
+                                <span class="value">{currentDoc.expiry.issueDate}</span>
+                            </div>
+                            <div>
+                                <span class="label">Expiry Date</span>
+                                <span class="value">{currentDoc.expiry.expiryDate}</span>
+                            </div>
+                            <div>
+                                <span class="label">Days Expired</span>
+                                <span class="value">{currentDoc.expiry.daysExpired}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- COMPLETENESS PANEL -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                            <span>Completeness</span>
+                            <span class="percentage">{currentDoc.completeness.percentage}%</span>
+                        </div>
+
+                        <lightning-progress-bar
+                            value={currentDoc.completeness.percentage}
+                            size="small">
+                        </lightning-progress-bar>
+
+                        <template if:true={currentDoc.completeness.missingFields.length}>
+                            <div class="missing">
+                                <span class="label">Missing Fields</span>
+                                <template for:each={currentDoc.completeness.missingFields} for:item="field">
+                                    <span key={field} class="pill pill-warning">{field}</span>
+                                </template>
+                            </div>
+                        </template>
+                    </section>
+
+                    <!-- EXTRACTED INFORMATION -->
+                    <section class="panel wide">
+                        <div class="panel-header">
+                            <lightning-icon icon-name="utility:description" size="x-small"></lightning-icon>
+                            <span>Extracted Information</span>
+                        </div>
+
+                        <div class="panel-grid grid-4">
+                            <template for:each={currentDoc.extracted} for:item="item">
+                                <div key={item.label}>
+                                    <span class="label">{item.label}</span>
+                                    <span class="value">{item.value}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <div class="empty-state">
+                <lightning-icon icon-name="utility:warning" size="small"></lightning-icon>
+                <p>{errorMessage}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

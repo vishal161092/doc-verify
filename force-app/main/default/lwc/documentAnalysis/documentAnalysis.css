@@ -1,0 +1,222 @@
+/* Custom Document Table Styling - Horizontal Borders Only */
+.custom-document-table {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-document-table .slds-table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Remove vertical borders, keep horizontal only */
+.custom-document-table .slds-table th,
+.custom-document-table .slds-table td {
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #dddbda;
+    padding: 12px 8px;
+}
+
+.custom-document-table .slds-table thead th {
+    border-top: 1px solid #dddbda;
+    background-color: #fafafa;
+    font-weight: 600;
+}
+
+.custom-document-table .slds-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Actions Column Styling */
+.actions-header {
+    width: 150px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.actions-cell {
+    width: 150px;
+    min-width: 150px;
+    text-align: center;
+    padding: 8px !important;
+}
+
+.action-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.action-buttons-container lightning-button-icon {
+    margin: 0 2px;
+}
+
+/* AI Analysis Header */
+.ai-analysis-header {
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+}
+
+/* AI Analysis Cell with Perfect Scrollbar */
+.ai-analysis-cell {
+    width: 400px !important;
+    min-width: 400px !important;
+    max-width: 400px !important;
+    padding: 4px !important;
+    vertical-align: top !important;
+}
+
+.ai-analysis-content {
+    width: 380px;
+    height: 120px;
+    max-height: 120px;
+    min-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px;
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre-line;
+    word-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
+}
+
+/* Custom Scrollbar Styling - GUARANTEED TO WORK */
+.ai-analysis-content::-webkit-scrollbar {
+    width: 14px;
+}
+
+.ai-analysis-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.ai-analysis-content::-webkit-scrollbar-thumb {
+    background: #0176d3;
+    border-radius: 8px;
+    border: 2px solid #f1f1f1;
+}
+
+.ai-analysis-content::-webkit-scrollbar-thumb:hover {
+    background: #014486;
+}
+
+.ai-analysis-content::-webkit-scrollbar-thumb:active {
+    background: #032d60;
+}
+
+/* Firefox Scrollbar */
+.ai-analysis-content {
+    scrollbar-width: thin;
+    scrollbar-color: #0176d3 #f1f1f1;
+}
+
+/* Status Styling */
+.status-completed {
+    color: #2e844a;
+    font-weight: 500;
+}
+
+.status-pending {
+    color: #ff6b35;
+    font-weight: 500;
+}
+
+/* Table Row Hover Effect */
+.custom-document-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* File Column Media Styling */
+.slds-media__figure {
+    margin-right: 8px;
+}
+
+/* AI Summary Modal Styling */
+.ai-summary-container {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.ai-summary-content {
+    background-color: #f8f9fa;
+    border: 2px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 16px;
+    min-height: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    white-space: pre-line;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+/* AI Summary Scrollbar */
+.ai-summary-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.ai-summary-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.ai-summary-content::-webkit-scrollbar-thumb {
+    background: #0176d3;
+    border-radius: 6px;
+    border: 2px solid #f1f1f1;
+}
+
+.ai-summary-content::-webkit-scrollbar-thumb:hover {
+    background: #014486;
+}
+
+/* Firefox Scrollbar */
+.ai-summary-content {
+    scrollbar-width: thin;
+    scrollbar-color: #0176d3 #f1f1f1;
+}
+
+/* Modal Sizing */
+.slds-modal__container {
+    max-width: 800px;
+    width: 90vw;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .ai-analysis-header,
+    .ai-analysis-cell {
+        width: 300px !important;
+        min-width: 300px !important;
+        max-width: 300px !important;
+    }
+    
+    .ai-analysis-content {
+        width: 280px;
+    }
+    
+    .actions-header,
+    .actions-cell {
+        width: 120px;
+        min-width: 120px;
+    }
+    
+    .slds-modal__container {
+        width: 95vw;
+        max-width: none;
+    }
+}

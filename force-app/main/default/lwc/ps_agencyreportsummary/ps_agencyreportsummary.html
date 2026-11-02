@@ -1,0 +1,95 @@
+<template>
+    <lightning-card title="">
+        <div class="main-card">
+        <template if:true={sectionEntries}>
+            <template if:true={eligibility}>
+                <div class="summary-box summary-container slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_medium summary-header">Key Eligibility Criteria</h3>
+                    <template for:each={formattedEligibility} for:item="line">
+                        <p key={line} class="slds-text-body_regular summary-text">{line}</p>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={applicants}>
+                <div class="summary-box summary-container slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_medium summary-header">Applicants Details</h3>
+                    <template for:each={formattedApplicants} for:item="line">
+                        <p key={line} class="slds-text-body_regular summary-text">{line}</p>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={summary}>
+                <div class="summary-box summary-container slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_medium summary-header">Summary</h3>
+                    <template for:each={formattedSummary} for:item="line">
+                        <p key={line} class="slds-text-body_regular summary-text">{line}</p>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={riskScore}>
+                <div class="risk-score-box" style={riskScoreStyle}>
+                    <h2 class="risk-score">Risk Score</h2>
+                    <p class="risk-score"><strong>{riskScore}</strong></p>
+                </div>
+            </template>
+
+            <div class="grid-container">
+                <template for:each={sectionEntries} for:item="section">
+                    <div
+                        class="grid-item"
+                        key={section.title}
+                        style={section.style} >
+
+                        <div class="section-header">
+                            <h4 class="section-title">{section.title}</h4>
+                            <div class="slds-col slds-no-flex">
+                                <template if:true={section.icon}>
+                                    <span
+                                        class="slds-badge status-badge"
+                                        style={section.headerStyle}
+                                    >
+                                        Pass
+                                    </span>
+                                    <lightning-icon
+                                        icon-name="action:approval"
+                                        alternative-text="Pass"
+                                        size="xx-small"
+                                        class="green-background-icon">
+                                    </lightning-icon>
+                                </template>
+                                <template if:false={section.icon}>
+                                    <span
+                                        class="slds-badge status-badge"
+                                        style={section.headerStyle}
+                                    >
+                                        Fail
+                                    </span>
+                                    <lightning-icon
+                                        icon-name="action:close"
+                                        alternative-text="Fail"
+                                        size="xx-small"
+                                        class="red-background-icon">
+                                    </lightning-icon>
+                                </template>
+                            </div>
+                        </div>
+
+                        <template for:each={section.entries} for:item="entry">
+                            <p key={entry.key}>
+                                <br>
+                                <strong>{entry.key}:</strong> {entry.value}
+                            </p>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:true={isSectionEntriesEmpty}>
+            <p class="no-data">No detailed data available.</p>
+        </template>
+    </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,38 @@
+<template>
+    <div class="validation-container">
+       
+        <!-- Aadhaar Card Component -->
+        <template if:true={isAadhaarCard}>
+            <c-aadhaar-card-validation data={documentData}></c-aadhaar-card-validation>
+        </template>
+
+        <!-- Driving License Component -->
+        <template if:true={isDrivingLicense}>
+            <c-driving-license-validation2 data={documentData}></c-driving-license-validation2>
+        </template>
+
+        <!-- Passport Component -->
+        <template if:true={isPassport}>
+            <c-passport-validation data={documentData}></c-passport-validation>
+        </template>
+
+        <!-- PAN Card Component -->
+        <template if:true={isPanCard}>
+            <c-pan-card-validation data={documentData}></c-pan-card-validation>
+        </template>
+
+        <!-- No Data Message -->
+        <template if:true={showNoData}>
+            <div class="no-data">
+                <div style="text-align: center; padding: 40px; background: white; border-radius: 8px;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+                    <h2 style="color: #1a1a1a; margin-bottom: 8px;">No Document Data</h2>
+                    <p style="color: #666;">No document validation data available.</p>
+                    <p style="color: #999; font-size: 12px; margin-top: 16px;">
+                        Please ensure the document validation response is properly passed from the Flow.
+                    </p>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

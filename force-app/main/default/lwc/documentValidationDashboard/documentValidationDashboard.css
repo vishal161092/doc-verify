@@ -1,0 +1,133 @@
+.dashboard-container {
+    padding: 1rem 1.5rem;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+/* Heading */
+.dashboard-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Tabs */
+.tabs-container {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+}
+
+.tab-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
+    background: white;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.tab-button:hover {
+    background: #eef2ff;
+}
+
+.tab-active {
+    background: #4b61ff;
+    border-color: #4b61ff;
+    color: white;
+}
+
+/* Card */
+.doc-card {
+    background: white;
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-left: 6px solid #4b61ff;
+}
+
+.doc-header {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Info rows */
+.doc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+.doc-row:last-child {
+    border-bottom: none;
+}
+
+.doc-label {
+    font-weight: 600;
+    color: #444;
+}
+
+.doc-value {
+    font-weight: 700;
+    color: #111;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-ok {
+    background: #d4f8df;
+    color: #0a7d36;
+    border: 1px solid #8fe6a9;
+}
+
+.status-error {
+    background: #ffe1e1;
+    color: #c02929;
+    border: 1px solid #ff9b9b;
+}
+
+/* No Data */
+.no-data-box {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    color: #777;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Icons */
+.icon {
+    font-size: 1.1rem;
+}
+
+.icon-doc {
+    color: #4b61ff;
+}
+.icon-error {
+    color: #d80000;
+}
+.icon-ok {
+    color: #118c39;
+}

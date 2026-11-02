@@ -1,0 +1,13 @@
+.wrapper {
+    padding: 15px;
+}
+
+.no-data {
+    padding: 14px;
+    background: #ffeaea;
+    border: 1px solid #ff7b7b;
+    color: #b20000;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}

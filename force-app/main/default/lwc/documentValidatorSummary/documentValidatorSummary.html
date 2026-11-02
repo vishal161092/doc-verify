@@ -1,0 +1,136 @@
+<template>
+    <lightning-card title="Document AI Validator" icon-name="custom:custom85">
+        <template if:true={hasData}>
+            <div class="card-body">
+                <div class="header">
+                    <div class="header__left">
+                        <span class="doc-label">{viewModel.documentLabel}</span>
+                        <span class="doc-type">{viewModel.documentType}</span>
+                        <span class="timestamp">Updated {viewModel.timestamp}</span>
+                    </div>
+                    <div class={viewModel.statusVariant}>
+                        <lightning-icon icon-name={viewModel.iconName} size="xx-small"></lightning-icon>
+                        <span>{viewModel.statusLabel}</span>
+                    </div>
+                </div>
+
+                <div class="metrics">
+                    <template for:each={viewModel.metrics} for:item="metric">
+                        <div key={metric.label} class="metric-tile">
+                            <span class="metric-label">{metric.label}</span>
+                            <span class="metric-value">{metric.value}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={viewModel.flags.length}>
+                    <div class="flags">
+                        <template for:each={viewModel.flags} for:item="flag">
+                            <span key={flag.label} class={flag.className}>{flag.label}</span>
+                        </template>
+                    </div>
+                </template>
+
+                <div class="sections">
+                    <section class="panel">
+                        <div class="panel__header">
+                            <span>Expiry Details</span>
+                            <span class={viewModel.expiry.badgeClass}>{viewModel.expiry.badgeLabel}</span>
+                        </div>
+                        <div class="panel__grid">
+                            <div>
+                                <span class="label">Issue Date</span>
+                                <span class="value">{viewModel.expiry.issueDate}</span>
+                            </div>
+                            <div>
+                                <span class="label">Expiry Date</span>
+                                <span class="value">{viewModel.expiry.expiryDate}</span>
+                            </div>
+                            <div>
+                                <span class="label">Days Expired</span>
+                                <span class="value">{viewModel.expiry.daysExpired}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="panel">
+                        <div class="panel__header">
+                            <span>Completeness</span>
+                            <span class="percentage">{viewModel.completeness.percentage}%</span>
+                        </div>
+                        <lightning-progress-bar
+                            value={viewModel.completeness.percentage}
+                            size="small"
+                        ></lightning-progress-bar>
+                        <template if:true={viewModel.completeness.missingFields.length}>
+                            <div class="list">
+                                <span class="label">Missing Fields</span>
+                                <template
+                                    for:each={viewModel.completeness.missingFields}
+                                    for:item="field"
+                                >
+                                    <span key={field} class="pill pill-warning">{field}</span>
+                                </template>
+                            </div>
+                        </template>
+                    </section>
+
+                    <section class="panel">
+                        <div class="panel__header">
+                            <span>Quality</span>
+                            <span class={viewModel.quality.badgeClass}>{viewModel.quality.badgeLabel}</span>
+                        </div>
+                        <div class="panel__grid">
+                            <div>
+                                <span class="label">Readable</span>
+                                <span class="value">{viewModel.quality.isReadable}</span>
+                            </div>
+                            <div>
+                                <span class="label">Blur Score</span>
+                                <span class="value">{viewModel.quality.blurScore}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="panel wide">
+                        <div class="panel__header">
+                            <span>Extracted Information</span>
+                        </div>
+                        <div class="panel__grid grid-4">
+                            <template for:each={viewModel.extracted} for:item="entry">
+                                <div key={entry.label}>
+                                    <span class="label">{entry.label}</span>
+                                    <span class="value">{entry.value}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+
+                    <template if:true={hasIssues}>
+                        <section class="panel wide">
+                            <div class="panel__header">
+                                <span>Issues Detected</span>
+                            </div>
+                            <div class="issues">
+                                <template for:each={viewModel.issues} for:item="issue">
+                                    <div key={issue.id} class="issue">
+                                        <span class="issue-label">{issue.label}</span>
+                                        <span class="issue-severity">{issue.severity}</span>
+                                        <p>{issue.message}</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </section>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <div class="empty-state">
+                <lightning-icon icon-name="utility:warning" alternative-text="Warning"></lightning-icon>
+                <p>{errorMessage}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

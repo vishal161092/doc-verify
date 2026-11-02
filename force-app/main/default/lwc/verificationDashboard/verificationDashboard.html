@@ -1,0 +1,67 @@
+<template>
+    <div class="slds-card report-container">
+        <!-- Header -->
+        <div class="report-header">
+            <div class="header-icon-wrapper">
+                <lightning-icon icon-name="doctype:attachment" size="medium" class="document-icon"></lightning-icon>
+            </div>
+            <div>
+                <h1 class="slds-text-heading_large report-title">Document Verification Report</h1>
+                <p class="slds-text-body_regular report-subtitle">
+                    Comparison of submitted documents with application records
+                </p>
+            </div>
+        </div>
+
+        <!-- Verification Sections -->
+        <div class="verification-sections">
+            <!-- PAN Card Section -->
+            <template if:true={showPanCard}>
+                <div class="slds-m-bottom_medium">
+                    <c-pan-card-verification verification-data={panData}></c-pan-card-verification>
+                </div>
+            </template>
+
+            <!-- Aadhar Card Section -->
+            <template if:true={showAadharCard}>
+                <div class="slds-m-bottom_medium">
+                    <c-aadhar-card-verification verification-data={aadharData}></c-aadhar-card-verification>
+                </div>
+            </template>
+
+            <!-- No Data Available -->
+            <template if:false={showPanCard}>
+                <template if:false={showAadharCard}>
+                    <div class="slds-text-align_center slds-p-around_large">
+                        <p class="slds-text-body_regular slds-text-color_weak">
+                            No verification data available
+                        </p>
+                    </div>
+                </template>
+            </template>
+        </div>
+
+        <!-- Verification Legend -->
+        <div class="verification-legend">
+            <div class="legend-header">
+                <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
+                <span class="legend-title">Verification Legend:</span>
+            </div>
+
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-label">100%:</span>
+                    <span class="legend-description">Perfect match – field values are identical</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-label">70-99%:</span>
+                    <span class="legend-description">Partial match – similar but not identical</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-label">&lt;70%:</span>
+                    <span class="legend-description">Mismatch – values differ significantly</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

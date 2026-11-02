@@ -1,0 +1,27 @@
+<template>
+    <div class="wrapper">
+
+        <template if:true={showNoData}>
+            <div class="no-data">
+                ⚠️ No validation details found.
+            </div>
+        </template>
+
+        <template if:true={isDrivingLicense}>
+            <c-driving-license-validation data={docData}></c-driving-license-validation>
+        </template>
+       <!--
+        <template if:true={isAadhaar}>
+            <c-aadhaar-card-validation data={docData}></c-aadhaar-card-validation>
+        </template>
+
+        <template if:true={isPassport}>
+            <c-passport-validation data={docData}></c-passport-validation>
+        </template>
+
+        <template if:true={isPan}>
+            <c-pan-card-validation data={docData}></c-pan-card-validation>
+        </template>
+    -->
+    </div>
+</template>
